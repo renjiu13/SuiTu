@@ -1,7 +1,7 @@
 export async function onRequestGet(context) {
   try {
     // 读取图片清单
-    const listResp = await context.env.ASSETS.fetch('/image-list.json');
+    const listResp = await context.assets.fetch('/image-list.json');
     if (!listResp.ok) throw new Error('图片清单不存在');
     
     const { h } = await listResp.json();
