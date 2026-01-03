@@ -1,6 +1,6 @@
 export async function onRequestGet(context) {
   try {
-    const listResp = await context.assets.fetch('/image-list.json');
+    const listResp = await fetch(new URL('/image-list.json', context.request.url));
     if (!listResp.ok) throw new Error('图片清单不存在');
     
     const { all } = await listResp.json();
