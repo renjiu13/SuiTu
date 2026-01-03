@@ -9,8 +9,10 @@ export async function onRequestGet(context) {
     
     // 随机选一张
     const randomImg = h[Math.floor(Math.random() * h.length)];
+    // 构建完整图片URL
+    const imageUrl = new URL(randomImg, context.request.url).toString();
     // 302重定向到图片（CF会自动缓存）
-    return Response.redirect(randomImg, 302);
+    return Response.redirect(imageUrl, 302);
   } catch (err) {
     return new Response(`获取失败：${err.message}`, { status: 500 });
   }

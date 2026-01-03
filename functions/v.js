@@ -7,7 +7,9 @@ export async function onRequestGet(context) {
     if (v.length === 0) return new Response('无竖屏图片', { status: 404 });
     
     const randomImg = v[Math.floor(Math.random() * v.length)];
-    return Response.redirect(randomImg, 302);
+    // 构建完整图片URL
+    const imageUrl = new URL(randomImg, context.request.url).toString();
+    return Response.redirect(imageUrl, 302);
   } catch (err) {
     return new Response(`获取失败：${err.message}`, { status: 500 });
   }
