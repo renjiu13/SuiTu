@@ -15,10 +15,20 @@ const CONFIG = {
 };
 
 // ===================== 工具函数 =====================
-// 生成3位随机文件名（000.webp ~ fff.webp）
+// 生成6位随机文件名（000000.webp ~ ffffff.webp）以避免冲突
 function generateRandomFileName() {
-  const randomStr = Math.random().toString(16).slice(2, 5).padStart(3, '0');
+  const randomStr = Math.random().toString(16).slice(2, 8).padStart(6, '0');
   return `${randomStr}.webp`;
+}
+
+// 检查文件是否存在
+async function checkFileExists(filePath) {
+  try {
+    await fs.access(filePath);
+    return true; // 文件存在
+  } catch {
+    return false; // 文件不存在
+  }
 }
 
 // 判断图片横竖屏（宽>高=横屏h，宽<=高=竖屏v）
@@ -153,13 +163,44 @@ async function processImages() {
     // 4. 处理每张图片（判方向→转WebP→分类存储→删原图）
     const hFiles = []; // 横屏图片路径列表
     const vFiles = []; // 竖屏图片路径列表
-    for (const file of imageFiles) {
+    
+    // 用于跟踪已使用的文件名，避免冲突
+    const usedFileNames = new Set();
+    
+    // 并发处理配置
+    const maxConcurrency = 4; // 最大并发数，可根据CPU核心数调整
+    
+    // 为每个文件生成处理任务
+    const processTasks = imageFiles.map(file => async () => {
       const rawPath = path.join(CONFIG.rawDir, file);
       const orientation = await getImageOrientation(rawPath);
       const targetDir = orientation === 'h' ? CONFIG.hDir : CONFIG.vDir;
-      const newFileName = generateRandomFileName();
-      const outputPath = path.join(targetDir, newFileName);
-
+      
+      // 生成唯一的文件名
+      let newFileName;
+      let outputPath;
+      let attempts = 0;
+      const maxAttempts = 100; // 防止无限循环
+      
+      // 使用锁机制确保文件名唯一性
+      do {
+        if (attempts >= maxAttempts) {
+          console.error(`无法为 ${file} 生成唯一文件名，已达到最大尝试次数`);
+          return null; // 返回null表示处理失败
+        }
+        
+        newFileName = generateRandomFileName();
+        outputPath = path.join(targetDir, newFileName);
+        attempts++;
+      } while (usedFileNames.has(newFileName) || await checkFileExists(outputPath));
+      
+      if (attempts >= maxAttempts) {
+        return null; // 返回null表示处理失败
+      }
+      
+      // 添加到已使用文件名集合
+      usedFileNames.add(newFileName);
+      
       // 转换为WebP并保存
       await sharp(rawPath)
         .webp({ quality: CONFIG.webpQuality })
@@ -168,11 +209,32 @@ async function processImages() {
 
       // 记录图片路径（供清单/画廊用）
       const relativePath = `/${orientation}/${newFileName}`;
-      orientation === 'h' ? hFiles.push(relativePath) : vFiles.push(relativePath);
-
+      
       // 删除原始图片
       await fs.unlink(rawPath);
       console.log(`已删除原图：${file}`);
+      
+      return { orientation, relativePath };
+    });
+    
+    // 并发执行任务
+    const results = [];
+    for (let i = 0; i < processTasks.length; i += maxConcurrency) {
+      const batch = processTasks.slice(i, i + maxConcurrency);
+      const batchResults = await Promise.allSettled(batch.map(task => task()));
+      
+      for (const result of batchResults) {
+        if (result.status === 'fulfilled' && result.value !== null) {
+          const { orientation, relativePath } = result.value;
+          if (orientation === 'h') {
+            hFiles.push(relativePath);
+          } else {
+            vFiles.push(relativePath);
+          }
+        } else if (result.status === 'rejected') {
+          console.error('图片处理失败:', result.reason);
+        }
+      }
     }
 
     // 5. 生成图片清单JSON
