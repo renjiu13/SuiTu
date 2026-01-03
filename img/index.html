@@ -1,0 +1,326 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>图片画廊</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: Arial, sans-serif; padding: 20px; max-width: 1200px; margin: 0 auto; }
+    .tabs { margin-bottom: 20px; }
+    .tab-btn { 
+      padding: 8px 16px; margin-right: 8px; border: none; border-radius: 4px;
+      background: #007cff; color: white; cursor: pointer;
+    }
+    .tab-btn.active { background: #0056b3; }
+    .gallery { 
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .img-card { border: 1px solid #eee; border-radius: 8px; overflow: hidden; }
+    .img-card img { width: 100%; height: 200px; object-fit: cover; }
+    .img-card .type { padding: 8px; text-align: center; font-size: 12px; color: #666; }
+    .hidden { display: none; }
+    .count { margin: 10px 0; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>图片画廊</h1>
+  <div class="count">总图片数：26（横屏：11 | 竖屏：15）</div>
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab('all')">全部</button>
+    <button class="tab-btn" onclick="switchTab('h')">横屏</button>
+    <button class="tab-btn" onclick="switchTab('v')">竖屏</button>
+  </div>
+
+  <!-- 全部图片 -->
+  <div id="all-tab" class="gallery">
+    
+      <div class="img-card">
+        <img src="/h/7a5.webp" alt="图片1" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/cba.webp" alt="图片2" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/3a2.webp" alt="图片3" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/cbb.webp" alt="图片4" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/e39.webp" alt="图片5" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/c16.webp" alt="图片6" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/bdd.webp" alt="图片7" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/10d.webp" alt="图片8" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/ef4.webp" alt="图片9" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/04a.webp" alt="图片10" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/9d9.webp" alt="图片11" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/bcc.webp" alt="图片12" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/c65.webp" alt="图片13" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/34e.webp" alt="图片14" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f4d.webp" alt="图片15" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/416.webp" alt="图片16" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/81c.webp" alt="图片17" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/1d1.webp" alt="图片18" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/442.webp" alt="图片19" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/1c9.webp" alt="图片20" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/038.webp" alt="图片21" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f6a.webp" alt="图片22" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/c0c.webp" alt="图片23" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/75b.webp" alt="图片24" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/bad.webp" alt="图片25" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f79.webp" alt="图片26" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+  </div>
+
+  <!-- 横屏图片 -->
+  <div id="h-tab" class="gallery hidden">
+    
+      <div class="img-card">
+        <img src="/h/7a5.webp" alt="横屏图片1" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/cba.webp" alt="横屏图片2" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/3a2.webp" alt="横屏图片3" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/cbb.webp" alt="横屏图片4" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/e39.webp" alt="横屏图片5" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/c16.webp" alt="横屏图片6" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/bdd.webp" alt="横屏图片7" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/10d.webp" alt="横屏图片8" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/ef4.webp" alt="横屏图片9" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/04a.webp" alt="横屏图片10" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/h/9d9.webp" alt="横屏图片11" loading="lazy">
+        <div class="type">横屏</div>
+      </div>
+    
+  </div>
+
+  <!-- 竖屏图片 -->
+  <div id="v-tab" class="gallery hidden">
+    
+      <div class="img-card">
+        <img src="/v/bcc.webp" alt="竖屏图片1" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/c65.webp" alt="竖屏图片2" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/34e.webp" alt="竖屏图片3" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f4d.webp" alt="竖屏图片4" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/416.webp" alt="竖屏图片5" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/81c.webp" alt="竖屏图片6" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/1d1.webp" alt="竖屏图片7" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/442.webp" alt="竖屏图片8" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/1c9.webp" alt="竖屏图片9" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/038.webp" alt="竖屏图片10" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f6a.webp" alt="竖屏图片11" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/c0c.webp" alt="竖屏图片12" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/75b.webp" alt="竖屏图片13" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/bad.webp" alt="竖屏图片14" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+      <div class="img-card">
+        <img src="/v/f79.webp" alt="竖屏图片15" loading="lazy">
+        <div class="type">竖屏</div>
+      </div>
+    
+  </div>
+
+  <script>
+    // 画廊标签切换逻辑
+    function switchTab(tabName) {
+      // 隐藏所有标签
+      document.querySelectorAll('.gallery').forEach(el => el.classList.add('hidden'));
+      // 激活当前标签
+      document.getElementById(`${tabName}-tab`).classList.remove('hidden');
+      // 切换按钮样式
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+  </script>
+</body>
+</html>
+  
